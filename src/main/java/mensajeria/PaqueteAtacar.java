@@ -1,24 +1,28 @@
 package mensajeria;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int idEnemigo;
-	private int nuevaSaludPersonaje;
-	private int nuevaEnergiaPersonaje;
-	private int nuevaSaludEnemigo;
-	private int nuevaEnergiaEnemigo;
+	
+	private HashMap<String,Integer> personaje = new HashMap<String,Integer>();
+	private HashMap<String,Integer> atacante = new HashMap<String,Integer>();
 	
 	public PaqueteAtacar(int id, int idEnemigo, int nuevaSalud, int nuevaEnergia, int nuevaSaludEnemigo, int nuevaEnergiaEnemigo) {
 		setComando(Comando.ATACAR);
 		this.id = id;
 		this.idEnemigo = idEnemigo;
-		this.nuevaSaludPersonaje = nuevaSalud;
-		this.nuevaEnergiaPersonaje = nuevaEnergia;
-		this.nuevaSaludEnemigo = nuevaSaludEnemigo;
-		this.nuevaEnergiaEnemigo = nuevaEnergiaEnemigo;
+		this.personaje.put("salud", nuevaSalud);
+		this.atacante.put("salud", nuevaSaludEnemigo);
+		this.personaje.put("energia", nuevaEnergia);
+		this.atacante.put("enegia", nuevaEnergiaEnemigo);
 	}
 
 	public int getId() {
@@ -28,7 +32,7 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public int getIdEnemigo() {
 		return idEnemigo;
 	}
@@ -36,39 +40,14 @@ public class PaqueteAtacar extends Paquete implements Serializable, Cloneable {
 	public void setIdEnemigo(int idEnemigo) {
 		this.idEnemigo = idEnemigo;
 	}
+
+	public HashMap<String,Integer> getMapPersonaje(){
+		return personaje;
+	}
 	
-	public int getNuevaSaludPersonaje() {
-		return nuevaSaludPersonaje;
+	public HashMap<String,Integer> getMapAtacante(){
+		return atacante;
 	}
-
-	public void setNuevaSaludPersonaje(int nuevaSaludPersonaje) {
-		this.nuevaSaludPersonaje = nuevaSaludPersonaje;
-	}
-
-	public int getNuevaEnergiaPersonaje() {
-		return nuevaEnergiaPersonaje;
-	}
-
-	public void setNuevaEnergiaPersonaje(int nuevaEnergiaPersonaje) {
-		this.nuevaEnergiaPersonaje = nuevaEnergiaPersonaje;
-	}
-
-	public int getNuevaSaludEnemigo() {
-		return nuevaSaludEnemigo;
-	}
-
-	public void setNuevaSaludEnemigo(int nuevaSaludEnemigo) {
-		this.nuevaSaludEnemigo = nuevaSaludEnemigo;
-	}
-
-	public int getNuevaEnergiaEnemigo() {
-		return nuevaEnergiaEnemigo;
-	}
-
-	public void setNuevaEnergiaEnemigo(int nuevaEnergiaEnemigo) {
-		this.nuevaEnergiaEnemigo = nuevaEnergiaEnemigo;
-	}
-
 
 
 }
