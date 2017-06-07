@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Paquete implements Serializable, Cloneable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static String msjExito = "1";
 	public static String msjFracaso = "0";
 	

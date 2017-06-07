@@ -1,11 +1,18 @@
 package mensajeria;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import dominio.Item;
 import estados.Estado;
 
 public class PaquetePersonaje extends Paquete implements Serializable, Cloneable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int idMapa;
 	private int estado;
@@ -19,7 +26,8 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int inteligencia;
 	private int nivel;
 	private int experiencia;
-
+	private ArrayList<Item> inventario = new ArrayList<Item>();
+	
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
 	}
@@ -142,6 +150,59 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
 	public void setInteligencia(int inteligencia) {
 		this.inteligencia = inteligencia;
+	}
+	
+
+	public ArrayList<Item> getInventario() {
+		return inventario;
+	}
+
+	public void setInventario (ArrayList<Item> inventario) {
+		this.inventario = inventario;
+	}
+	
+	//Metodo para obtener un item y su bonus
+	
+	public int getItem(int index) {
+		return inventario.get(index).getId();
+	}
+	
+	public void aniadirItem(String nombre, HashMap<String,Integer> bonus, Integer ubicacion) {
+		
+		Item nuevoItem = new Item (inventario.size(), nombre, bonus, ubicacion);
+		inventario.add(nuevoItem);
+		//Con esto aplico el/los bonus del nuevo item
+		
+		this.saludTope = this.saludTope + nuevoItem.getBonus().get("salud");
+		this.destreza = this.destreza + nuevoItem.getBonus().get("destreza");
+		this.energiaTope = this.energiaTope + nuevoItem.getBonus().get("energia");
+		this.fuerza = this.fuerza + nuevoItem.getBonus().get("fuerza");
+		this.inteligencia = this.inteligencia + nuevoItem.getBonus().get("inteligencia");
+		
+	}
+	
+	//Con este metodo aplico los bonus de mis items del inventario al iniciar sesion
+	public void aplicarBonus() {
+		
+		for(int i=0; i<inventario.size(); i++) {
+			this.saludTope = this.saludTope + inventario.get(i).getBonus().get("salud");
+			this.destreza = this.destreza + inventario.get(i).getBonus().get("destreza");
+			this.energiaTope = this.energiaTope + inventario.get(i).getBonus().get("energia");
+			this.fuerza = this.fuerza + inventario.get(i).getBonus().get("fuerza");
+			this.inteligencia = this.inteligencia + inventario.get(i).getBonus().get("inteligencia");
+		}
+	}
+	
+	//Con este metodo quito los bonus antes de desconectar al personaje. Asi no modifico sus atributos directamente
+	public void quitarBonus() {
+		
+		for(int i=0; i<inventario.size(); i++) {
+			this.saludTope = this.saludTope - inventario.get(i).getBonus().get("salud");
+			this.destreza = this.destreza - inventario.get(i).getBonus().get("destreza");
+			this.energiaTope = this.energiaTope - inventario.get(i).getBonus().get("energia");
+			this.fuerza = this.fuerza - inventario.get(i).getBonus().get("fuerza");
+			this.inteligencia = this.inteligencia - inventario.get(i).getBonus().get("inteligencia");
+		}
 	}
 
 	public Object clone() {
