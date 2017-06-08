@@ -13,110 +13,133 @@ import com.google.gson.JsonSyntaxException;
 import cliente.Cliente;
 import mensajeria.Comando;
 import mensajeria.Paquete;
+import mensajeria.PaqueteAtacar;
+import mensajeria.PaqueteBatalla;
+import mensajeria.PaqueteFinalizarBatalla;
+import mensajeria.PaqueteMovimiento;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
 public class TestCliente {
 
-	/// Para realizar los test es necesario iniciar el servidor
-
 	@Test
-	public void testConexionConElServidor() {
-		Gson gson = new Gson();
+	public void testPaqueteUsuario() {
 
-		Cliente cliente = new Cliente();
-
-		// Pasado este punto la conexi�n entre el cliente y el servidor resulto exitosa
-		Assert.assertEquals(1, 1);
-
-		try {
-
-			// Cierro las conexiones
-			Paquete p = new Paquete();
-			p.setComando(Comando.DESCONECTAR);
-			p.setIp(cliente.getMiIp());
-			cliente.getSalida().writeObject(gson.toJson(p));
-			cliente.getSalida().close();
-			cliente.getEntrada().close();
-			cliente.getSocket().close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PaqueteUsuario pu = new PaqueteUsuario(1,"Javier","ABC");
+		Assert.assertEquals(1, pu.getIdPj());
+		Assert.assertEquals("Javier", pu.getUsername());
+		Assert.assertEquals("ABC", pu.getPassword());
+		Assert.assertFalse(pu.isInicioSesion());
 	}
 
-	@Test
-	public void testRegistro() {
-		Gson gson = new Gson();
-
-		// Registro el usuario
-		PaqueteUsuario pu = new PaqueteUsuario();
-		pu.setComando(Comando.REGISTRO);
-		pu.setUsername("nuevoUser");
-		pu.setPassword("test");
-
-		Cliente cliente = new Cliente();
-
-		try {
-
-			// Envio el paquete para registrarme
-			cliente.getSalida().writeObject(gson.toJson(pu));
-
-			// Recibo la respuesta del servidor
-			Paquete resultado = (Paquete) gson.fromJson((String) cliente.getEntrada().readObject(), Paquete.class);
-
-			// Cierro las conexiones
-			Paquete p = new Paquete();
-			p.setComando(Comando.DESCONECTAR);
-			p.setIp(cliente.getMiIp());
-			cliente.getSalida().writeObject(gson.toJson(p));
-			cliente.getSalida().close();
-			cliente.getEntrada().close();
-			cliente.getSocket().close();
-
-			Assert.assertEquals(Paquete.msjExito, resultado.getMensaje());
-
-		} catch (JsonSyntaxException | ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Test
-	public void testRegistroFallido() {
-		Gson gson = new Gson();
-
-		// Registro el usuario
-		PaqueteUsuario pu = new PaqueteUsuario();
-		pu.setComando(Comando.REGISTRO);
-		pu.setUsername("nuevoUser");
-		pu.setPassword("test");
-
-		Cliente cliente = new Cliente();
-
-		try {
-
-			// Envio el paquete para registrarme
-			cliente.getSalida().writeObject(gson.toJson(pu));
-
-			// Recibo la respuesta del servidor
-			Paquete resultado = (Paquete) gson.fromJson((String) cliente.getEntrada().readObject(), Paquete.class);
-
-			// Cierro las conexiones
-			Paquete p = new Paquete();
-			p.setComando(Comando.DESCONECTAR);
-			p.setIp(cliente.getMiIp());
-			cliente.getSalida().writeObject(gson.toJson(p));
-			cliente.getSalida().close();
-			cliente.getEntrada().close();
-			cliente.getSocket().close();
-
-			Assert.assertEquals(Paquete.msjFracaso, resultado.getMensaje());
-
-		} catch (JsonSyntaxException | ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
+	public void testPaquetePersonaje() {
+		
+		PaquetePersonaje pp = new PaquetePersonaje();
+		pp.setCasta("Asesino");
+		pp.setDestreza(1);
+		pp.setEnergiaTope(1);
+		pp.setEstado(1);
+		pp.setExperiencia(1);
+		pp.setFuerza(1);
+		pp.setId(1);
+		pp.setMapa(1);
+		pp.setInteligencia(1);
+		pp.setNivel(1);
+		pp.setNombre("Hola");
+		pp.setRaza("Orco");
+		pp.setSaludTope(1);
+		
+		Assert.assertEquals("Asesino", pp.getCasta());
+		Assert.assertEquals(1, pp.getDestreza());
+		Assert.assertEquals(1, pp.getEnergiaTope());
+		Assert.assertEquals(1, pp.getEstado());
+		Assert.assertEquals(1, pp.getExperiencia());
+		Assert.assertEquals(1, pp.getFuerza());
+		Assert.assertEquals(1, pp.getId());
+		Assert.assertEquals(1, pp.getMapa());
+		Assert.assertEquals(1, pp.getInteligencia());
+		Assert.assertEquals(1, pp.getNivel());
+		Assert.assertEquals("Hola", pp.getNombre());
+		Assert.assertEquals("Orco", pp.getRaza());
+		Assert.assertEquals(1, pp.getSaludTope());		
 	}
-
+	
+	
+	@Test
+	public void testPaqueteMovimiento() {
+		
+		PaqueteMovimiento pm = new PaqueteMovimiento(1,1,1);
+		pm.setDireccion(1);
+		pm.setFrame(1);
+		
+		Assert.assertEquals(1, pm.getIdPersonaje());
+		Assert.assertEquals(1, pm.getPosX(),0.01);
+		Assert.assertEquals(1, pm.getPosY(),0.01);
+		Assert.assertEquals(1, pm.getDireccion());
+		Assert.assertEquals(1, pm.getFrame());
+	}
+	
+	
+	@Test
+	public void testPaqueteFinalizarBatalla() {
+		
+		PaqueteFinalizarBatalla pfb = new PaqueteFinalizarBatalla();
+		pfb.setId(1);
+		pfb.setIdEnemigo(1);
+		
+		Assert.assertEquals(1, pfb.getId());
+		Assert.assertEquals(1, pfb.getIdEnemigo());
+	}
+	
+	
+	@Test
+	public void testPaqueteBatalla() {
+		
+		PaqueteBatalla pb = new PaqueteBatalla();
+		pb.setId(1);
+		pb.setIdEnemigo(1);
+		pb.setMiTurno(true);
+		
+		Assert.assertEquals(1, pb.getId());
+		Assert.assertEquals(1, pb.getIdEnemigo());
+		Assert.assertTrue(pb.isMiTurno());
+	}
+	
+	
+	@Test
+	public void testPaqueteAtacar() {
+		
+		PaqueteAtacar pa = new PaqueteAtacar(1, 1, 1, 1, 1, 1);
+		
+		Assert.assertEquals(1, pa.getId());
+		Assert.assertEquals(1, pa.getIdEnemigo());
+	}
+	
+	
+	@Test
+	public void testPaquete() {
+		
+		Paquete p = new Paquete("Hola", "Marco-Polo", "A", 1);
+		
+		Assert.assertEquals("Hola", p.getMensaje());
+		Assert.assertEquals("A", p.getIp());
+		Assert.assertEquals(1, p.getComando());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
 	@Test
 	public void testRegistrarPersonaje() {
 		Gson gson = new Gson();
@@ -247,4 +270,5 @@ public class TestCliente {
 			e.printStackTrace();
 		}
 	}
+	*/
 }
