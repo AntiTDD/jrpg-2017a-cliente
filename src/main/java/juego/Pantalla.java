@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.font.FontRenderContext;
@@ -19,6 +21,8 @@ import javax.swing.JOptionPane;
 import com.google.gson.Gson;
 
 import cliente.Cliente;
+import estados.Estado;
+import frames.MenuInventario;
 import frames.MenuJugar;
 import mensajeria.Comando;
 import mensajeria.Paquete;
@@ -52,12 +56,24 @@ public class Pantalla {
 					cliente.getSocket().close();
 					System.exit(0);
 				} catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Fallo al intentar cerrar la aplicación.");
+					JOptionPane.showMessageDialog(null, "Fallo al intentar cerrar la aplicaciÃ³n.");
 					System.exit(1);
 					e.printStackTrace();
 				}
 			}
 		});
+		
+		pantalla.addKeyListener(new KeyAdapter() {
+			
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_I) {
+					MenuInventario inventario = new MenuInventario(cliente.getPaquetePersonaje());
+					inventario.setVisible(true);
+					
+				}
+			}
+			
+});
 
 		pantalla.setLocationRelativeTo(null);
 		pantalla.setVisible(false);

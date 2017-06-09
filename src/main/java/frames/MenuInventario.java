@@ -1,42 +1,28 @@
 package frames;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Window.Type;
+
+import mensajeria.PaquetePersonaje;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.JLabel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class MenuInventario extends JFrame {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuInventario frame = new MenuInventario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public MenuInventario() {
+	public MenuInventario(PaquetePersonaje personaje) {
+		ArrayList<Integer> idItems = new ArrayList<Integer>();
+		JLabel [] labelItems = new JLabel[20];
+		
 		setBackground(Color.LIGHT_GRAY);
 		setFont(new Font("Book Antiqua", Font.PLAIN, 12));
 		setType(Type.UTILITY);
@@ -129,6 +115,108 @@ public class MenuInventario extends JFrame {
 		panelItem20.setBounds(322, 267, 46, 42);
 		contentPane.add(panelItem20);
 		
+		
+		JLabel item1 = new JLabel();
+		item1.setBounds(49,51,46,42);
+		contentPane.add(item1);
+		labelItems[0] = item1;
+	
+		JLabel item2 = new JLabel();
+		item2.setBounds(119,51,46,42);
+		contentPane.add(item2);
+		labelItems[1] = item2;
+		
+
+		JLabel item3 = new JLabel();
+		item3.setBounds(189,51,46,42);
+		contentPane.add(item3);
+		labelItems[2] = item3;
+		
+		JLabel item4 = new JLabel();
+		item4.setBounds(259,51,46,42);
+		contentPane.add(item4);
+		labelItems[3] = item4;
+		
+		JLabel item5= new JLabel();
+		item5.setBounds(329,51,46,42);
+		contentPane.add(item5);
+		labelItems[4] = item5;
+		
+		JLabel item6 = new JLabel();
+		item6.setBounds(49,123,46,42);
+		contentPane.add(item6);
+		labelItems[5] = item6;
+		
+		JLabel item7 = new JLabel();
+		item7.setBounds(119,123,46,42);
+		contentPane.add(item7);
+		labelItems[6] = item7;
+		
+		JLabel item8 = new JLabel();
+		item8.setBounds(189,123,46,42);
+		contentPane.add(item8);
+		labelItems[7] = item8;
+		
+		JLabel item9 = new JLabel();
+		item9.setBounds(259,123,46,42);
+		contentPane.add(item9);
+		labelItems[8] = item9;
+		
+		JLabel item10 = new JLabel();
+		item10.setBounds(329,123,46,42);
+		contentPane.add(item10);
+		labelItems[9] = item10;
+		
+		JLabel item11 = new JLabel();
+		item11.setBounds(49,195,46,42);
+		contentPane.add(item11);
+		labelItems[10] = item11;
+		
+		JLabel item12 = new JLabel();
+		item12.setBounds(119,195,46,42);
+		contentPane.add(item12);
+		labelItems[11] = item12;
+		
+		JLabel item13 = new JLabel();
+		item13.setBounds(189,195,46,42);
+		contentPane.add(item13);
+		labelItems[12] = item13;
+		
+		JLabel item14 = new JLabel();
+		item14.setBounds(259,195,46,42);
+		contentPane.add(item14);
+		labelItems[13] = item14;
+		
+		JLabel item15 = new JLabel();
+		item15.setBounds(329,195,46,42);
+		contentPane.add(item15);
+		labelItems[14] = item15;
+		
+		JLabel item16 = new JLabel();
+		item16.setBounds(49,267,46,42);
+		contentPane.add(item16);
+		labelItems[15] = item16;
+		
+		JLabel item17 = new JLabel();
+		item17.setBounds(119,267,46,42);
+		contentPane.add(item17);
+		labelItems[16] = item17;
+		
+		JLabel item18 = new JLabel();
+		item18.setBounds(189,267,46,42);
+		contentPane.add(item18);
+		labelItems[17] = item18;
+		
+		JLabel item19 = new JLabel();
+		item19.setBounds(259,267,46,42);
+		contentPane.add(item19);
+		labelItems[18] = item19;
+		
+		JLabel item20 = new JLabel();
+		item20.setBounds(329,267,46,42);
+		contentPane.add(item20);
+		labelItems[19] = item20;
+		
 		JLabel lblItemEquipados = new JLabel("Items Equipados");
 		lblItemEquipados.setFont(new Font("Book Antiqua", Font.BOLD, 22));
 		lblItemEquipados.setForeground(Color.BLACK);
@@ -136,5 +224,13 @@ public class MenuInventario extends JFrame {
 		lblItemEquipados.setBounds(119, 11, 179, 29);
 		contentPane.add(lblItemEquipados);
 		
+		idItems = personaje.listarItems();
+		int k=0;
+		while(k < idItems.size()) {
+			labelItems[k].setIcon(new ImageIcon(MenuInventario.class.getResource("/frames/"+idItems.get(k)+".png")));
+			k++;
+		}
+		
 	}
+
 }

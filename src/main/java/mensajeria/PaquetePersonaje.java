@@ -10,7 +10,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
 	/**
 	 * 
-	 */
+	 *///necesito commitear
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int idMapa;
@@ -26,6 +26,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int nivel;
 	private int experiencia;
 	private ArrayList<Item> inventario = new ArrayList<Item>();
+	private static final int TAMANOINVENTARIO = 19;
 	
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
@@ -168,6 +169,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	
 	public void aniadirItem(Item nuevoItem) {
 		
+		if(this.inventarioLleno()) {
+			this.eliminarUltimoItem();
+		}
+		
 		this.inventario.add(nuevoItem);
 		
 		//actualizo al personaje con los bonus de los nuevos items
@@ -199,7 +204,27 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 			this.inteligencia = this.inteligencia - inventario.get(i).getBonus().get("BonoMagia");
 		}
 	}
-
+	
+	public boolean inventarioLleno() {
+		return inventario.size() == TAMANOINVENTARIO + 1;
+	}
+	
+	public void eliminarUltimoItem() {
+		Item ultimoItem = new Item ();
+		ultimoItem = inventario.get(TAMANOINVENTARIO);
+		inventario.remove(ultimoItem);
+	}
+	
+	public ArrayList<Integer> listarItems() {
+		ArrayList<Integer> listadoItems = new ArrayList<Integer>();
+		
+		for(int i = 0; i<inventario.size(); i++) {
+			listadoItems.add(this.inventario.get(i).getId());
+		}
+		
+		return listadoItems;
+	}
+	
 	public Object clone() {
 		Object obj = null;
 		obj = super.clone();
