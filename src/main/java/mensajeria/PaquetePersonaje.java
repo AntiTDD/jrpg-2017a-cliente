@@ -25,6 +25,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int inteligencia;
 	private int nivel;
 	private int experiencia;
+	private boolean ganoBatalla = false;
 	private ArrayList<Item> inventario = new ArrayList<Item>();
 	private static final int TAMANOINVENTARIO = 19;
 	
@@ -165,6 +166,14 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	
 	public int getItem(int index) {
 		return inventario.get(index).getId();
+	}
+	
+	public void setGanoBatalla(boolean resultado) {
+		this.ganoBatalla = resultado;
+	}
+	
+	public boolean getGanoBatalla() {
+		return this.ganoBatalla;
 	}
 	
 	public void aniadirItem(Item nuevoItem) {
