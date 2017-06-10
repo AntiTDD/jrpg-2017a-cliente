@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import juego.Pantalla;
 import mensajeria.PaquetePersonaje;
 
 import java.awt.Font;
@@ -14,20 +15,19 @@ import javax.swing.JLabel;
 import java.util.ArrayList;
 
 public class MenuInventario extends JFrame {
+	private JLabel [] labelItems = new JLabel[20];
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	public MenuInventario(PaquetePersonaje personaje) {
-		ArrayList<Integer> idItems = new ArrayList<Integer>();
-		JLabel [] labelItems = new JLabel[20];
 		
 		setBackground(Color.LIGHT_GRAY);
 		setFont(new Font("Book Antiqua", Font.PLAIN, 12));
 		setType(Type.UTILITY);
 		setTitle("Inventario");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 423, 394);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.GRAY);
@@ -224,13 +224,15 @@ public class MenuInventario extends JFrame {
 		lblItemEquipados.setBounds(119, 11, 179, 29);
 		contentPane.add(lblItemEquipados);
 		
+	}
+	
+	public void cargarInventario(PaquetePersonaje personaje) {
+		ArrayList<Integer> idItems = new ArrayList<Integer>();
 		idItems = personaje.listarItems();
-		int k=0;
-		while(k < idItems.size()) {
-			labelItems[k].setIcon(new ImageIcon(MenuInventario.class.getResource("/frames/"+idItems.get(k)+".png")));
-			k++;
+		for(int k=0; k < idItems.size(); k++) {
+			int nroItem = idItems.get(k);
+			labelItems[k].setIcon(new ImageIcon(MenuInventario.class.getResource("/frames/"+nroItem+".png")));
 		}
-		
 	}
 
 }

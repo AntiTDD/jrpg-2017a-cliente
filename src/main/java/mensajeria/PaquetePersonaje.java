@@ -10,7 +10,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 
 	/**
 	 * 
-	 *///necesito commitear
+	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int idMapa;
@@ -27,7 +27,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private int experiencia;
 	private boolean ganoBatalla = false;
 	private ArrayList<Item> inventario = new ArrayList<Item>();
-	private static final int TAMANOINVENTARIO = 19;
+	private static final int TAMAÑOINVENTARIO = 19;
 	
 	public PaquetePersonaje() {
 		estado = Estado.estadoOffline;
@@ -69,16 +69,13 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getCasta() {
 		return casta;
 	}
-
 
 	public void setCasta(String casta) {
 		this.casta = casta;
@@ -88,66 +85,53 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		return nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public String getRaza() {
 		return raza;
 	}
 
-
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
-
 
 	public int getSaludTope() {
 		return saludTope;
 	}
 
-
 	public void setSaludTope(int saludTope) {
 		this.saludTope = saludTope;
 	}
-
 
 	public int getEnergiaTope() {
 		return energiaTope;
 	}
 
-
 	public void setEnergiaTope(int energiaTope) {
 		this.energiaTope = energiaTope;
 	}
-
 
 	public int getFuerza() {
 		return fuerza;
 	}
 
-
 	public void setFuerza(int fuerza) {
 		this.fuerza = fuerza;
 	}
-
 
 	public int getDestreza() {
 		return destreza;
 	}
 
-
 	public void setDestreza(int destreza) {
 		this.destreza = destreza;
 	}
 
-
 	public int getInteligencia() {
 		return inteligencia;
 	}
-
 
 	public void setInteligencia(int inteligencia) {
 		this.inteligencia = inteligencia;
@@ -161,8 +145,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public void setInventario (ArrayList<Item> inventario) {
 		this.inventario = inventario;
 	}
-	
-	//Metodo para obtener un item y su bonus
 	
 	public int getItem(int index) {
 		return inventario.get(index).getId();
@@ -183,8 +165,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		}
 		
 		this.inventario.add(nuevoItem);
-		
-		//actualizo al personaje con los bonus de los nuevos items
 		this.saludTope = this.saludTope + nuevoItem.getBonus().get("bonoSalud");
 		this.destreza = this.destreza + nuevoItem.getBonus().get("bonoDefensa");
 		this.energiaTope = this.energiaTope + nuevoItem.getBonus().get("bonoEnergia");
@@ -192,7 +172,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		
 	}
 	
-	//Con este metodo aplico los bonus de mis items del inventario al iniciar sesion
 	public void aplicarBonus() {
 		
 		for(int i=0; i<inventario.size(); i++) {
@@ -203,7 +182,6 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 		}
 	}
 	
-	//Con este metodo quito los bonus antes de desconectar al personaje. Asi no modifico sus atributos directamente
 	public void quitarBonus() {
 		
 		for(int i=0; i<inventario.size(); i++) {
@@ -215,12 +193,13 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	}
 	
 	public boolean inventarioLleno() {
-		return inventario.size() == TAMANOINVENTARIO + 1;
+		return inventario.size() == TAMAÑOINVENTARIO + 1;
 	}
 	
 	public void eliminarUltimoItem() {
 		Item ultimoItem = new Item ();
-		ultimoItem = inventario.get(TAMANOINVENTARIO);
+		ultimoItem = inventario.get(TAMAÑOINVENTARIO);
+		
 		this.saludTope = this.saludTope - ultimoItem.getBonus().get("bonoSalud");
 		this.energiaTope = this.energiaTope - ultimoItem.getBonus().get("bonoEnergia");
 		this.destreza = this.destreza - ultimoItem.getBonus().get("bonoDefensa");
