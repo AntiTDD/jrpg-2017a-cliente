@@ -212,6 +212,10 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	public void eliminarUltimoItem() {
 		Item ultimoItem = new Item ();
 		ultimoItem = inventario.get(TAMANOINVENTARIO);
+		this.saludTope = this.saludTope - ultimoItem.getBonus().get("bonoSalud");
+		this.energiaTope = this.energiaTope - ultimoItem.getBonus().get("bonoEnergia");
+		this.destreza = this.destreza - ultimoItem.getBonus().get("bonoDefensa");
+		this.inteligencia = this.inteligencia - ultimoItem.getBonus().get("BonoMagia");
 		inventario.remove(ultimoItem);
 	}
 	
