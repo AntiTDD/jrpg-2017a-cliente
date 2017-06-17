@@ -68,7 +68,6 @@ public class Pantalla {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_I) {
 					MenuInventario inventario = new MenuInventario(cliente.getPaquetePersonaje());
-					//inventario.cargarInventario(cliente.getPaquetePersonaje());
 					inventario.setVisible(true);
 					
 				}
