@@ -90,8 +90,13 @@ public class EscuchaMensajes extends Thread {
 					personajesConectados.put(paquetePersonaje.getId(), paquetePersonaje);
 					
 					if(juego.getPersonaje().getId() == paquetePersonaje.getId()) {
+						if(juego.getPersonaje().getGanoBatalla()){
+							juego.getPersonaje().aniadirItem(juego.getPersonaje().getInventario().get(juego.getPersonaje().getInventario().size()-1));
+							juego.getPersonaje().setGanoBatalla(false);
+						}
 						juego.actualizarPersonaje();
 						juego.getEstadoJuego().actualizarPersonaje();
+						juego.getCliente().actualizarPersonaje(paquetePersonaje);
 					}
 				}	
 			}
