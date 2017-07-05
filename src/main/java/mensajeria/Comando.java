@@ -4,12 +4,8 @@ import com.google.gson.Gson;
 
 public abstract class Comando {
 	
-	public static final String[] CLASSNAMES = { "Conexion", "CreacionPJ", "Desconectar", "InicioSesion", "MostrarMapas",
-			"Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl" };
-	public static final String[] CLASSNAMESBIS = { "Conexion", "CrearPersonaje", "Desconectar", "InicioSesionSet", "MostrarMapas",
-			"Movimiento", "RegistroSet", "SalirSet", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "ActualizarPersonajeLvl" };
-	
-	
+	public static final String[] CLASSNAMES = { "Conexion", "CreacionPJ","Desconectar" ,"InicioSesion","MostrarMapas","Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje" };
+
 	public static final int ACTUALIZARPERSONAJE = 11;
 	public static final int ATACAR = 9;
 	public static final int BATALLA = 8;
