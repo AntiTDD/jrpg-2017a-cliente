@@ -165,10 +165,13 @@ public class Entidad {
 							try {
 								juego.getCliente().getSalida().writeObject(gson.toJson(pBatalla));
 							} catch (IOException e) {
-								JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+								JOptionPane.showMessageDialog(null, "Fallo la conexiï¿½n con el servidor");
 								e.printStackTrace();
 							}
-						} else {
+						} else { //pregunto si el personaje esta en la zona de comercio
+							if((juego.getUbicacionPersonaje().getPosX() >= -256 && juego.getUbicacionPersonaje().getPosX() <= -65) && (juego.getUbicacionPersonaje().getPosY()>=161 && juego.getUbicacionPersonaje().getPosY()<=256)) {
+							//aca deberia preguntar por la posicion del otro personaje pero es muy dificil lo hago maÃ±ana
+							}
 							juego.getEstadoJuego().setHaySolicitud(false, null, 0);
 						}
 						
@@ -303,6 +306,7 @@ public class Entidad {
 		double paso = 1;
 
 		if (enMovimiento && !(x == xFinal && y == yFinal - 32)) {
+			//System.out.println("x= "+x+" y= "+y);
 			if (movimientoHacia == verticalSup)
 				dy -= paso;
 			else if (movimientoHacia == verticalInf)
@@ -410,7 +414,7 @@ public class Entidad {
 			juego.getCliente().getSalida()
 					.writeObject(gson.toJson(juego.getUbicacionPersonaje(), PaqueteMovimiento.class));
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor.");
+			JOptionPane.showMessageDialog(null, "Fallo la conexiï¿½n con el servidor.");
 			e.printStackTrace();
 		}
 	}

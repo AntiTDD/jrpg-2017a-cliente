@@ -20,6 +20,8 @@ public class MenuInfoPersonaje {
 	public static final int menuSubirNivel = 2;
 	public static final int menuGanarBatalla = 3;
 	public static final int menuPerderBatalla = 4;
+	//aca grafico menu comerciar
+	public static final int menuComerciar = 5;
 	
 	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar"};
 	
