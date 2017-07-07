@@ -14,6 +14,8 @@ import java.awt.event.KeyEvent;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,6 +23,7 @@ import java.awt.event.MouseEvent;
 public class MenuInventario extends JFrame {
 	private JLabel [] labelItems = new JLabel[20];
 	private JPanel [] panels = new JPanel [20];
+	int espacioComercio;
 	/**
 	 * 
 	 */
@@ -254,7 +257,7 @@ public class MenuInventario extends JFrame {
 	 * @wbp.parser.constructor
 	 */
 	public MenuInventario(PaquetePersonaje personaje, MenuComercio menuComercio) {
-		int espacioComercio=0;
+		espacioComercio = 0;
 		menuComercio.setLocation(0, 0);
 		menuComercio.setVisible(true);
 		setBackground(Color.LIGHT_GRAY);
@@ -487,8 +490,14 @@ public class MenuInventario extends JFrame {
 		item1.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
-			      if(e.getClickCount()==2){
-			        menuComercio.panelMio[espacioComercio].add(item1);
+			      if(e.getClickCount()==2) {
+			    	  if(espacioComercio<10) {
+			    	  menuComercio.misItems[0].setIcon(labelItems[0].getIcon());
+			    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[0]);
+			    	  espacioComercio++;
+			    	  }else {
+			    		  //informar que ya no puede comerciar mas items
+			    	  }
 			       }
 			}
 		});
@@ -497,7 +506,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[1].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -506,7 +521,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[2].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -515,7 +536,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[3].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -524,7 +551,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[4].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -533,7 +566,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[5].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -542,7 +581,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[6].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -551,7 +596,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[7].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -560,7 +611,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[8].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -569,7 +626,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[9].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -578,7 +641,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[10].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -587,7 +656,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[11].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -596,7 +671,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[12].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -605,7 +686,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[13].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -614,7 +701,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[14].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -623,7 +716,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[15].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -632,8 +731,14 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
-			       }
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[16].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
+			      }
 			}
 		});
 		
@@ -641,7 +746,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[17].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -650,7 +761,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[18].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
@@ -659,7 +776,13 @@ public class MenuInventario extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
-			         System.out.println("doble click");
+			    	  if(espacioComercio<10) {
+				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[19].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  espacioComercio++;
+				    	  }else {
+				    		  //informar que ya no puede comerciar mas items
+				    	  }
 			       }
 			}
 		});
