@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import estados.Estado;
 import estados.EstadoBatalla;
 import frames.MenuComercio;
+import frames.MenuInventario;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.Paquete;
@@ -113,8 +114,8 @@ public class EscuchaMensajes extends Thread {
 							paqueteComercio.setMensaje(Paquete.msjFracaso);
 						} else {
 							juego.getCliente().setPaqueteComercio(paqueteComercio);
-							juego.getCliente().setMenuComercio(new MenuComercio(juego.getCliente().getPaquetePersonaje()));
-							juego.getCliente().getMenuComercio().setVisible(true);
+							juego.getCliente().setMenuInventario(new MenuInventario(juego.getCliente().getPaquetePersonaje(),new MenuComercio(juego.getCliente().getPaquetePersonaje())));
+							juego.getCliente().getMenuInventario().setVisible(true);
 							paqueteComercio.setMensaje(Paquete.msjExito);
 						}
 						
@@ -126,8 +127,8 @@ public class EscuchaMensajes extends Thread {
 						} else {
 							if(juego.getCliente().getMenuComercio() == null) {
 								juego.getCliente().setPaqueteComercio(paqueteComercio);
-								juego.getCliente().setMenuComercio(new MenuComercio(juego.getCliente().getPaquetePersonaje()));
-								juego.getCliente().getMenuComercio().setVisible(true);
+								juego.getCliente().setMenuInventario(new MenuInventario(juego.getCliente().getPaquetePersonaje(),new MenuComercio(juego.getCliente().getPaquetePersonaje())));
+								juego.getCliente().getMenuInventario().setVisible(true);
 							}
 						}
 					}

@@ -38,6 +38,7 @@ public class Cliente extends Thread {
 	
 	private PaqueteComercio paqueteComercio;
 	private MenuComercio menuComercio;
+	private MenuInventario menuInventario;
 	
 	// Ip y puerto
 	private String ip;
@@ -286,5 +287,13 @@ public class Cliente extends Thread {
 	
 	public void setPaqueteComercio (PaqueteComercio pc) {
 		paqueteComercio = pc;
+	}
+	
+	public void setMenuInventario(MenuInventario mi) {
+		menuInventario = mi;
+	}
+	
+	public MenuInventario getMenuInventario() {
+		return menuInventario;
 	}
 }
