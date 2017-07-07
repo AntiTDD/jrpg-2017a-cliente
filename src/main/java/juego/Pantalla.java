@@ -80,20 +80,6 @@ public class Pantalla {
 			}
 
 		});
-		
-		pantalla.addKeyListener(new KeyAdapter() {
-			MenuComercio comercio = new MenuComercio(cliente.getPaquetePersonaje());
-			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_C) {
-						if (comercio.isVisible()){
-							comercio.setVisible(false);
-						}else{
-							comercio = new MenuComercio(cliente.getPaquetePersonaje());
-							comercio.setVisible(true);
-						}
-				}
-			}
-		});
 
 		pantalla.setLocationRelativeTo(null);
 		pantalla.setVisible(false);

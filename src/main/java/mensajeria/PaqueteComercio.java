@@ -11,6 +11,7 @@ public class PaqueteComercio extends Paquete implements Serializable, Cloneable{
 	
 	public PaqueteComercio() {
 		setComando(Comando.COMERCIO);
+		respuesta = true;
 	}
 	
 	public int getId() {

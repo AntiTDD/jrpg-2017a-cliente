@@ -7,14 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
+import cliente.EscuchaMensajes;
 import juego.Juego;
 import juego.Pantalla;
 import mensajeria.PaqueteBatalla;
+import mensajeria.PaqueteComercio;
 import mensajeria.PaqueteMovimiento;
 import mundo.Grafo;
 import mundo.Mundo;
@@ -153,8 +156,26 @@ public class Entidad {
 				if (juego.getEstadoJuego().getMenuEnemigo().clickEnMenu(posMouse[0], posMouse[1])) {
 					if (juego.getEstadoJuego().getMenuEnemigo().clickEnBoton(posMouse[0], posMouse[1])) {
 						
-						// pregunto si el menu emergente es de tipo batalla
-						if(juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar){
+						if(personajeEnMercado()) {//pregunto si el personaje esta en la zona de comercio
+							if(enemigoEnMercado()){//pregunto si el enemigo esta en la zona de comercio
+								PaqueteComercio paqueteComercio = new PaqueteComercio();
+								
+								paqueteComercio.setId(juego.getPersonaje().getId());
+								paqueteComercio.setIdEnemigo(idEnemigo);
+								juego.getEstadoJuego().setHaySolicitud(false, null, 5);
+								
+								try {
+									juego.getCliente().getSalida().writeObject(gson.toJson(paqueteComercio));
+								} catch (IOException e) {
+									JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor");
+									e.printStackTrace();
+								}
+								
+							}else {
+								//MANDAR MENSAJE DE QUE EL JUGADOR NO ESTA EN ZONA DE COMERCIO
+							}
+							// pregunto si el menu emergente es de tipo batalla
+						}else if(juego.getEstadoJuego().getTipoSolicitud() == MenuInfoPersonaje.menuBatallar){
 							PaqueteBatalla pBatalla = new PaqueteBatalla();
 
 							pBatalla.setId(juego.getPersonaje().getId());
@@ -168,15 +189,9 @@ public class Entidad {
 								JOptionPane.showMessageDialog(null, "Fallo la conexi�n con el servidor");
 								e.printStackTrace();
 							}
-						} else { //pregunto si el personaje esta en la zona de comercio
-							if((juego.getUbicacionPersonaje().getPosX() >= -256 && juego.getUbicacionPersonaje().getPosX() <= -65) && (juego.getUbicacionPersonaje().getPosY()>=161 && juego.getUbicacionPersonaje().getPosY()<=256)) {
-							//aca deberia preguntar por la posicion del otro personaje pero es muy dificil lo hago mañana
-							}
+						} 
 							juego.getEstadoJuego().setHaySolicitud(false, null, 0);
-						}
-						
-						
-					} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnCerrar(posMouse[0], posMouse[1])) {
+				} else if (juego.getEstadoJuego().getMenuEnemigo().clickEnCerrar(posMouse[0], posMouse[1])) {
 						juego.getEstadoJuego().setHaySolicitud(false, null, 0);
 					}
 				} else {
@@ -498,6 +513,26 @@ public class Entidad {
 		if (nodoUno.obtenerX() == nodoDos.obtenerX() || nodoUno.obtenerY() == nodoDos.obtenerY())
 			return false;
 		return true;
+	}
+	
+	private boolean personajeEnMercado() {
+		float xPersonaje = juego.getUbicacionPersonaje().getPosX();
+		float yPersonaje = juego.getUbicacionPersonaje().getPosY();
+		
+		if((xPersonaje >= -256 && xPersonaje<=-65) && (yPersonaje >= 161 && yPersonaje<=256)) 
+				return true;
+			
+		return false;
+	}
+	
+	private boolean enemigoEnMercado() {
+		float xEnemigo = juego.getEscuchaMensajes().getUbicacionPersonajes().get(idEnemigo).getPosX();
+		float yEnemigo = juego.getEscuchaMensajes().getUbicacionPersonajes().get(idEnemigo).getPosY();;
+		
+		if((xEnemigo >= -256 && xEnemigo <=-65) && (yEnemigo >= 161 && yEnemigo <=256))
+			return true;
+		
+		return false;
 	}
 
 	public float getX() {

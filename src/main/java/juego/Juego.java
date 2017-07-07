@@ -31,6 +31,7 @@ public class Juego implements Runnable {
 	// Estados
 	private Estado estadoJuego;
 	private Estado estadoBatalla;
+	private Estado estadoComercio;
 
 	// HandlerMouse
 	private HandlerMouse handlerMouse;

@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 public abstract class Comando {
 	
-	public static final String[] CLASSNAMES = { "Conexion", "CreacionPJ","Desconectar" ,"InicioSesion","MostrarMapas","Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje" };
+	public static final String[] CLASSNAMES = { "Conexion", "CreacionPJ","Desconectar" ,"InicioSesion","MostrarMapas","Movimiento", "Registro", "Salir", "Batalla", "Atacar", "FinalizarBatalla", "ActualizarPersonaje", "Comercio" };
 
 	public static final int ACTUALIZARPERSONAJE = 11;
 	public static final int ATACAR = 9;

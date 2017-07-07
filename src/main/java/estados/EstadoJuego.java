@@ -121,6 +121,8 @@ public class EstadoJuego extends Estado {
 	}
 	
 	public void setHaySolicitud(boolean b, PaquetePersonaje enemigo, int tipoSolicitud) {
+		
+		System.out.println("entro");
 		haySolicitud = b;
 		// menu que mostrara al enemigo
 		menuEnemigo = new MenuInfoPersonaje(300, 50, enemigo);

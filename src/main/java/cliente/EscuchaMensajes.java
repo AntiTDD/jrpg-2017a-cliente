@@ -10,11 +10,13 @@ import com.google.gson.Gson;
 
 import estados.Estado;
 import estados.EstadoBatalla;
+import frames.MenuComercio;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.Paquete;
 import mensajeria.PaqueteAtacar;
 import mensajeria.PaqueteBatalla;
+import mensajeria.PaqueteComercio;
 import mensajeria.PaqueteDeMovimientos;
 import mensajeria.PaqueteDePersonajes;
 import mensajeria.PaqueteMovimiento;
@@ -44,6 +46,7 @@ public class EscuchaMensajes extends Thread {
 			PaquetePersonaje paquetePersonaje;
 			PaqueteBatalla paqueteBatalla;
 			PaqueteAtacar paqueteAtacar;
+			PaqueteComercio paqueteComercio;
 			personajesConectados = new HashMap<>();
 			ubicacionPersonajes = new HashMap<>();
 
@@ -98,10 +101,41 @@ public class EscuchaMensajes extends Thread {
 						juego.getEstadoJuego().actualizarPersonaje();
 						juego.getCliente().actualizarPersonaje(paquetePersonaje);
 					}
+					break;
+					
+				case Comando.COMERCIO:
+					paqueteComercio = (PaqueteComercio) gson.fromJson(objetoLeido, PaqueteComercio.class);
+					paqueteComercio.setIdEnemigo(paqueteComercio.getId());
+					paqueteComercio.setId(juego.getCliente().getPaquetePersonaje().getId());
+					
+					if(paqueteComercio.getRespuesta()) {
+						if(juego.getCliente().getMenuComercio() != null) {
+							paqueteComercio.setMensaje(Paquete.msjFracaso);
+						} else {
+							juego.getCliente().setPaqueteComercio(paqueteComercio);
+							juego.getCliente().setMenuComercio(new MenuComercio(juego.getCliente().getPaquetePersonaje()));
+							juego.getCliente().getMenuComercio().setVisible(true);
+							paqueteComercio.setMensaje(Paquete.msjExito);
+						}
+						
+						paqueteComercio.setRespuesta(false);
+						juego.getCliente().getSalida().writeObject(gson.toJson(paqueteComercio));
+					} else {
+						if(paqueteComercio.getMensaje().equals((Paquete.msjFracaso))) {
+							JOptionPane.showMessageDialog(null, "El jugador ya esta comerciando");
+						} else {
+							if(juego.getCliente().getMenuComercio() == null) {
+								juego.getCliente().setPaqueteComercio(paqueteComercio);
+								juego.getCliente().setMenuComercio(new MenuComercio(juego.getCliente().getPaquetePersonaje()));
+								juego.getCliente().getMenuComercio().setVisible(true);
+							}
+						}
+					}
+					break;
 				}	
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Fallo la conexi�n con el servidor.");
+			JOptionPane.showMessageDialog(null, "Fallo la conexión con el servidor.");
 			e.printStackTrace();
 		}
 	}

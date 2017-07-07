@@ -20,10 +20,9 @@ public class MenuInfoPersonaje {
 	public static final int menuSubirNivel = 2;
 	public static final int menuGanarBatalla = 3;
 	public static final int menuPerderBatalla = 4;
-	//aca grafico menu comerciar
 	public static final int menuComerciar = 5;
 	
-	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar"};
+	private static final String [] leyendaBoton = {"Batallar", "Volver", "Aceptar", "Aceptar", "Aceptar", "Comerciar"};
 	
 	private int x;
 	private int y;
@@ -64,6 +63,9 @@ public class MenuInfoPersonaje {
 			break;
 		case menuPerderBatalla:
 			graficarMenuPerderBatalla(g);
+			break;
+		case menuComerciar:
+			graficarMenuComerciar(g);
 			break;
 			
 		}
@@ -131,6 +133,14 @@ public class MenuInfoPersonaje {
 		g.drawString(personaje.getNivel() + " ", x + 100, y + 290);
 		g.drawString(personaje.getExperiencia() + " / " + Personaje.tablaDeNiveles[personaje.getNivel() + 1], x + 150, y + 320);
 		
+	}
+	
+	public void graficarMenuComerciar(Graphics g) {
+		// Informo que pueden Comerciar
+		g.setColor(Color.BLACK);
+		Pantalla.centerString(g, new Rectangle(x, y + 200, menu.getWidth(), 0), "Comerciar!");
+		Pantalla.centerString(g, new Rectangle(x, y + 250, menu.getWidth(), 0), "Muestren Sus inventarios");
+		Pantalla.centerString(g, new Rectangle(x, y + 270, menu.getWidth(), 0), "y que inicie el trueque");
 	}
 	
 	public boolean clickEnBoton(int mouseX, int mouseY){

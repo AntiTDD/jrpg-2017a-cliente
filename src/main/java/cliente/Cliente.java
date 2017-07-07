@@ -15,6 +15,7 @@ import frames.*;
 import juego.Juego;
 import mensajeria.Comando;
 import mensajeria.Paquete;
+import mensajeria.PaqueteComercio;
 import mensajeria.PaquetePersonaje;
 import mensajeria.PaqueteUsuario;
 
@@ -34,6 +35,9 @@ public class Cliente extends Thread {
 	
 	// Acciones que realiza el usuario
 	private int accion;
+	
+	private PaqueteComercio paqueteComercio;
+	private MenuComercio menuComercio;
 	
 	// Ip y puerto
 	private String ip;
@@ -270,5 +274,17 @@ public class Cliente extends Thread {
 	
 	public void actualizarPersonaje(PaquetePersonaje paquetePersonaje2) {
 		paquetePersonaje = (PaquetePersonaje) paquetePersonaje2.clone();
+	}
+	
+	public MenuComercio getMenuComercio() {
+		return menuComercio;
+	}
+	
+	public void setMenuComercio(MenuComercio mc) {
+		menuComercio = mc;
+	}
+	
+	public void setPaqueteComercio (PaqueteComercio pc) {
+		paqueteComercio = pc;
 	}
 }
