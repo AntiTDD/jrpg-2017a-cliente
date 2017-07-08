@@ -1,0 +1,13 @@
+Gracias Por Descargar WOME, a continuacion indicaremos los pasos a seguir para su correcta instalacion:
+
+1-Ingresar a github(Link a continuacion)
+https://github.com/AntiTDD
+
+2-Importar desde Eclipse los 3 proyectos existentes en git (Dominio-Cliente-Servidor) de la siguiente forma:
+File -> Import -> Git -> Proyect from GIT -> Clone URI -> ingresamos el link del repositorio a importar 
+repetimos el procedimiento anterior para cada repositorio.
+
+3-Una vez importados los 3 repositorios, Se debera seleccionar el Proyecto servidor y ejecutarlo como "Java Aplication". una vez
+abierto, iniciar el servidor con dicho boton.
+
+4-Ejecutar cliente como "Java Aplication" y disfrutar del juego (sin tienda y sin chat).
