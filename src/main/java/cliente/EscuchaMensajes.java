@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 
+import dominio.Item;
 import estados.Estado;
 import estados.EstadoBatalla;
 import frames.MenuComercio;
@@ -114,7 +115,7 @@ public class EscuchaMensajes extends Thread {
 							paqueteComercio.setMensaje(Paquete.msjFracaso);
 						} else {
 							juego.getCliente().setPaqueteComercio(paqueteComercio);
-							juego.getCliente().setMenuInventario(new MenuInventario(juego.getCliente().getPaquetePersonaje(),new MenuComercio(juego.getCliente().getPaquetePersonaje())));
+							juego.getCliente().setMenuInventario(new MenuInventario(juego ,new MenuComercio(juego.getCliente())));
 							juego.getCliente().getMenuInventario().setVisible(true);
 							paqueteComercio.setMensaje(Paquete.msjExito);
 						}
@@ -127,12 +128,34 @@ public class EscuchaMensajes extends Thread {
 						} else {
 							if(juego.getCliente().getMenuComercio() == null) {
 								juego.getCliente().setPaqueteComercio(paqueteComercio);
-								juego.getCliente().setMenuInventario(new MenuInventario(juego.getCliente().getPaquetePersonaje(),new MenuComercio(juego.getCliente().getPaquetePersonaje())));
+								juego.getCliente().setMenuInventario(new MenuInventario(juego ,new MenuComercio(juego.getCliente())));
 								juego.getCliente().getMenuInventario().setVisible(true);
 							}
 						}
 					}
 					break;
+					
+				case Comando.ACTUALIZARCOMERCIO:
+					System.out.println("ENTRO");
+					int cantItemsAcomerciar = juego.getCliente().getMenuComercio().getItemsAComerciar().size();
+					int cantItemsObtener;
+					paqueteComercio = gson.fromJson(objetoLeido, PaqueteComercio.class);
+					cantItemsObtener = paqueteComercio.getItemsAComerciar().size();//dice items a comerciar ya que seria el paquete del otro cliente
+					if(juego.getCliente().getPaqueteComercio().getResultadoComercio() == true && paqueteComercio.getResultadoComercio() == true) {
+						if(cantItemsAcomerciar > 0 && cantItemsObtener >0) {
+							
+							juego.getCliente().getMenuComercio().getItemsAObtener().removeAll(juego.getCliente().getMenuComercio().getItemsAObtener());
+							for(Item item : paqueteComercio.getItemsAComerciar()){
+								juego.getCliente().getMenuComercio().getItemsAObtener().add(item);
+							}
+							juego.getCliente().getPaqueteComercio().setItemsARecibir(paqueteComercio.getItemsAComerciar());
+							
+						} else {
+							JOptionPane.showMessageDialog(null, "Ambos jugadores deben ofertar items.");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "No se acepto el trueque.");
+					}
 				}	
 			}
 		} catch (Exception e) {

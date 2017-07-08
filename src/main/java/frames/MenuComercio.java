@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import cliente.Cliente;
+import dominio.Item;
 import mensajeria.PaquetePersonaje;
 
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
@@ -26,9 +29,11 @@ public class MenuComercio extends JFrame {
 	JPanel[]panelEnemigo = new JPanel [10];
 	JLabel[]misItems = new JLabel[10];
 	JLabel[]itemsEnemigo = new JLabel[10];
+	ArrayList<Item> itemsAComerciar = new ArrayList<Item>();
+	ArrayList<Item> itemsAObtener = new ArrayList<Item>();
 	
 
-	public MenuComercio(PaquetePersonaje paquetePersonaje) {
+	public MenuComercio(Cliente cliente) { 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 375, 478);
 		contentPane = new JPanel();
@@ -307,8 +312,7 @@ public class MenuComercio extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Rechazó");
-				setVisible(false);
+				cliente.getPaqueteComercio().setResultadoComercio(false);
 			}
 		});
 		btnCancelar.setBounds(238, 35, 91, 24);
@@ -317,11 +321,7 @@ public class MenuComercio extends JFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Acepto");
-				//quitar los items que entregué
-				//quitar los bonus de los items que entregue
-				//agregar los nuevos
-				//agregar los nuevos bonus
+				cliente.getPaqueteComercio().setResultadoComercio(true);
 			}
 		});
 		btnAceptar.setBounds(238, 5, 91, 23);
@@ -360,5 +360,28 @@ public class MenuComercio extends JFrame {
 		lblSalud.setBackground(Color.WHITE);
 		lblSalud.hide();
 	}
+
+
+	public ArrayList<Item> getItemsAComerciar() {
+		return itemsAComerciar;
+	}
+
+
+	public void setItemsAComerciar(ArrayList<Item> itemsAComerciar) {
+		itemsAComerciar = itemsAComerciar;
+	}
+
+
+	public ArrayList<Item> getItemsAObtener() {
+		return itemsAObtener;
+	}
+
+
+	public void setItemsAObtener(ArrayList<Item> itemsAObtener) {
+		this.itemsAObtener = itemsAObtener;
+	}
+	
+	
+	
 }
 

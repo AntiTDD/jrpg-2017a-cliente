@@ -1,10 +1,14 @@
 package frames;
 
+import com.google.gson.Gson;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import cliente.Cliente;
+import dominio.Item;
+import juego.Juego;
 import juego.Pantalla;
 import mensajeria.PaquetePersonaje;
 
@@ -19,10 +23,15 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class MenuInventario extends JFrame {
 	private JLabel [] labelItems = new JLabel[20];
 	private JPanel [] panels = new JPanel [20];
+	ArrayList<Item> itemsAcomerciar = new ArrayList<Item>();
+	
+	protected final Gson gson = new Gson();
+	
 	int espacioComercio;
 	/**
 	 * 
@@ -256,9 +265,10 @@ public class MenuInventario extends JFrame {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public MenuInventario(PaquetePersonaje personaje, MenuComercio menuComercio) {
+	public MenuInventario(Juego juego, MenuComercio menuComercio) {
+		PaquetePersonaje personaje = juego.getCliente().getPaquetePersonaje();
 		espacioComercio = 0;
-		menuComercio.setLocation(0, 0);
+		menuComercio.setLocation(0,396);
 		menuComercio.setVisible(true);
 		setBackground(Color.LIGHT_GRAY);
 		setFont(new Font("Book Antiqua", Font.PLAIN, 12));
@@ -478,11 +488,9 @@ public class MenuInventario extends JFrame {
 		lblItemEquipados.setBackground(Color.GRAY);
 		lblItemEquipados.setBounds(119, 11, 179, 29);
 		contentPane.add(lblItemEquipados);
-
-		ArrayList<Integer> idItems = new ArrayList<Integer>();
-		idItems = personaje.listarItems();
-		for(int k=0; k < idItems.size(); k++) {
-			int nroItem = idItems.get(k);
+		
+		for(int k=0; k < personaje.getInventario().size(); k++) {
+			int nroItem = personaje.getInventario().get(k).getId();
 			labelItems[k].setIcon(new ImageIcon(MenuInventario.class.getResource("/frames/"+nroItem+".png")));
 			panels[k].add(labelItems[k]);
 		}
@@ -494,9 +502,17 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 			    	  menuComercio.misItems[0].setIcon(labelItems[0].getIcon());
 			    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[0]);
+			    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(0));
+			    	
+			    	  personaje.setComando(13);//este es mi paquete personaje
+			    	  try {
+						juego.getCliente().getSalida().writeObject(gson.toJson(juego.getCliente().getPaqueteComercio()));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 			    	  espacioComercio++;
 			    	  }else {
-			    		  //informar que ya no puede comerciar mas items
+			    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 			    	  }
 			       }
 			}
@@ -507,11 +523,12 @@ public class MenuInventario extends JFrame {
 				MouseEvent e = arg0;
 			      if(e.getClickCount()==2){
 			    	  if(espacioComercio<10) {
-				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[1].getIcon());
-				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+			    		  menuComercio.misItems[0].setIcon(labelItems[0].getIcon());
+				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[0]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(1));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -524,9 +541,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[2].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(2));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -539,9 +557,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[3].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(3));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -554,9 +573,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[4].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(4));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -569,9 +589,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[5].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(5));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -584,9 +605,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[6].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(6));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -599,9 +621,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[7].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(7));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -614,9 +637,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[8].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(8));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -629,9 +653,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[9].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(9));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -644,9 +669,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[10].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(10));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -659,9 +685,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[11].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(11));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -674,9 +701,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[12].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(12));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -689,9 +717,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[13].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(13));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -704,9 +733,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[14].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(14));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -719,9 +749,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[15].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(15));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -734,9 +765,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[16].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(16));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			      }
 			}
@@ -749,9 +781,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[17].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(17));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -764,9 +797,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[18].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(18));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}
@@ -779,9 +813,10 @@ public class MenuInventario extends JFrame {
 			    	  if(espacioComercio<10) {
 				    	  menuComercio.misItems[espacioComercio].setIcon(labelItems[19].getIcon());
 				    	  menuComercio.panelMio[espacioComercio].add(menuComercio.misItems[espacioComercio]);
+				    	  menuComercio.itemsAComerciar.add(personaje.getInventario().get(19));
 				    	  espacioComercio++;
 				    	  }else {
-				    		  //informar que ya no puede comerciar mas items
+				    		  JOptionPane.showMessageDialog(menuComercio, "No puede comerciar mas items");
 				    	  }
 			       }
 			}

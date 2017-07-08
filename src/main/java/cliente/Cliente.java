@@ -289,6 +289,10 @@ public class Cliente extends Thread {
 		paqueteComercio = pc;
 	}
 	
+	public PaqueteComercio getPaqueteComercio() {
+		return this.paqueteComercio;
+	}
+	
 	public void setMenuInventario(MenuInventario mi) {
 		menuInventario = mi;
 	}
@@ -296,4 +300,6 @@ public class Cliente extends Thread {
 	public MenuInventario getMenuInventario() {
 		return menuInventario;
 	}
+	
+	
 }

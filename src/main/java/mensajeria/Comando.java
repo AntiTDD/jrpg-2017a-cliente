@@ -19,6 +19,7 @@ public abstract class Comando {
 	public static final int REGISTRO = 6;
 	public static final int SALIR = 7;
 	public static final int COMERCIO = 12;
+	public static final int ACTUALIZARCOMERCIO = 13;
 	
 	protected final Gson gson = new Gson();
 	protected String cadenaLeida;
